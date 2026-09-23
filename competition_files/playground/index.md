@@ -6,6 +6,6 @@
 - [marimo](./marimo/)
 - [Colab](COLAB_LINK_PLACEHOLDER)
 
-## 作問支援スクリプト
+## exercise用
 
-- [competition_builder](./competition_builder/)
+- [Exercise](./exercise)

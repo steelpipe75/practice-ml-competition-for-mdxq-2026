@@ -12,7 +12,7 @@
 
 import marimo
 
-__generated_with = "0.19.9"
+__generated_with = "0.24.2"
 app = marimo.App(width="full")
 
 
@@ -26,7 +26,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # 機械学習コンペ サンプルノートブック
+    # マナビDXクエスト2026参加者向け練習用機器学習コンペ サンプル ノートブック
     """)
     return
 
@@ -180,8 +180,8 @@ def _(mo):
 
 @app.cell
 def _(train_df):
-    X = train_df[["a", "b"]]
-    y = train_df["c"]
+    X = train_df[["temperature", "sunshine_h", "humidity"]]
+    y = train_df["ice_sales"]
     return X, y
 
 
@@ -199,7 +199,7 @@ def _(y):
 
 @app.cell
 def _(test_df):
-    X_test = test_df[["a", "b"]]
+    X_test = test_df[["temperature", "sunshine_h", "humidity"]]
     return (X_test,)
 
 
@@ -350,7 +350,7 @@ def _(mo):
 
 @app.cell
 def _(pl, submit, y_pred_test):
-    my_submit = submit.with_columns(pl.Series("target", y_pred_test))
+    my_submit = submit.with_columns(pl.Series("ice_sales", y_pred_test))
     return (my_submit,)
 
 

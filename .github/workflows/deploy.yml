@@ -30,18 +30,18 @@ jobs:
           mkdir -p ./competition_files/playground/marimo/public/
           cp -r ./competition_files/data ./competition_files/playground/marimo/public/
           uv run marimo export html-wasm --sandbox --mode edit ./competition_files/playground/marimo/sample.py -o ./dist/marimo -f
+      - name: Copy exercise
+        run: |
+          cp -r ./competition_files/exercise ./dist
       - name: Convert markdown
         env:
           GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
           GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
         run: |
           uv run ./competition_files/playground/index_md_convert.py ./competition_files/playground/index.md ./dist/index.html
-      - name: Build competition_builder
-        run: |
-          uv run marimo export html-wasm --sandbox --mode edit ./competition_builder/marimo_competion_builder.py -o ./dist/competition_builder -f
       - name: Copy file
         run: |
-          cp  ./competition_files/playground/.nojekyll ./dist
+          cp ./competition_files/playground/.nojekyll ./dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
