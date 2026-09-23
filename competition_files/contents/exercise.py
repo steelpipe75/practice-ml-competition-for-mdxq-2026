@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 from st_screen_stats import ScreenData
 
 from utils import page_config, check_password
@@ -24,7 +23,7 @@ def exercise() -> None:
     calculated_height = int(data["innerHeight"] * 0.9)
     iframe_height = max(calculated_height, 720)
 
-    components.iframe(
+    st.iframe(
         src=EXERCISE_PAGE_URL,
         width=data["innerWidth"],
         height=iframe_height,

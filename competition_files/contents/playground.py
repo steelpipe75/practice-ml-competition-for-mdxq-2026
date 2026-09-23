@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 from st_screen_stats import ScreenData
 
 from utils import page_config, check_password
@@ -42,7 +41,7 @@ def playground() -> None:
     )
 
     if select_playground == ":material/dynamic_form: JupyterLite":
-        components.iframe(
+        st.iframe(
             src=PLAYGROUND_PAGE_URL_JUPYTERLITE,
             width=data["innerWidth"],
             height=iframe_height,
@@ -52,7 +51,7 @@ def playground() -> None:
             url=PLAYGROUND_PAGE_URL_JUPYTERLITE,
         )
     elif select_playground == ":material/flowsheet: marimo":
-        components.iframe(
+        st.iframe(
             src=PLAYGROUND_PAGE_URL_MARIMO,
             width=data["innerWidth"],
             height=iframe_height,
