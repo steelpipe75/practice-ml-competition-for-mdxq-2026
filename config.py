@@ -72,7 +72,7 @@ IS_COMPETITION_RUNNING = (
 DATA_STORE_TYPE = "google_sheet"
 
 # Google Sheets specific settings
-SPREADSHEET_NAME = "sample_spreadsheets"  # ここにスプレッドシート名を入力してください
+SPREADSHEET_NAME = "practice-ml-competition-for-mdxq-2026"  # ここにスプレッドシート名を入力してください
 LEADERBOARD_WORKSHEET_NAME = "leaderboard"  # リーダーボード用のワークシート名
 GROUND_TRUTH_WORKSHEET_NAME = "ground_truth"  # 正解データ用のワークシート名
 
