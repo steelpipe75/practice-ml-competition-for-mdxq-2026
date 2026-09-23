@@ -26,8 +26,13 @@ def _get_NAVIGATION_PAGES():
 def get_APP_NAVIGATION_PAGES():
     APP_NAVIGATION_PAGES = _get_NAVIGATION_PAGES() + [
         st.Page(
+            "competition_files/contents/exercise.py",
+            title="Exercise",
+            icon=":material/exercise:",
+        ),
+        st.Page(
             "competition_files/contents/playground.py",
-            title="playground",
+            title="Playground",
             icon=":material/terminal:",
         ),
     ]
@@ -153,25 +158,27 @@ LEADERBOARD_HEADER: List[str] = [
     "submission_time",
     "is_competition_running",
 ] + _additional_columns
-GROUND_TRUTH_HEADER: List[str] = ["id", "target", "Usage"]
+GROUND_TRUTH_HEADER: List[str] = ["id", "ice_sales", "Usage"]
 
 
 # --- Scoring Function ---
 def score_submission(pred_df: pd.DataFrame, gt_df: pd.DataFrame) -> Tuple[float, float]:
-    """public/privateスコアを返す (例:MAE)"""
+    """public/privateスコアを返す (RMSE)"""
     merged = pred_df.merge(gt_df, on="id", suffixes=("_pred", ""))
 
     public_mask = merged["Usage"] == "Public"
     private_mask = merged["Usage"] == "Private"
 
-    public_score = np.mean(
-        np.abs(
-            merged.loc[public_mask, "target_pred"] - merged.loc[public_mask, "target"]
+    public_score = np.sqrt(
+        np.mean(
+            (merged.loc[public_mask, "ice_sales_pred"] - merged.loc[public_mask, "ice_sales"])
+            ** 2
         )
     )
-    private_score = np.mean(
-        np.abs(
-            merged.loc[private_mask, "target_pred"] - merged.loc[private_mask, "target"]
+    private_score = np.sqrt(
+        np.mean(
+            (merged.loc[private_mask, "ice_sales_pred"] - merged.loc[private_mask, "ice_sales"])
+            ** 2
         )
     )
 
@@ -188,8 +195,8 @@ def read_ground_truth() -> pd.DataFrame:
     # データ型の変換
     if "id" in df.columns:
         df["id"] = pd.to_numeric(df["id"], errors="coerce")
-    if "target" in df.columns:
-        df["target"] = pd.to_numeric(df["target"], errors="coerce")
+    if "ice_sales" in df.columns:
+        df["ice_sales"] = pd.to_numeric(df["ice_sales"], errors="coerce")
     return df
 
 
